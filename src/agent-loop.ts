@@ -1,6 +1,7 @@
 import { parseAgentReply, AgentReplyParseError } from './agent-reply.js'
 import type { AgentReply } from './types.js'
 import type { CallSession } from './call-session.js'
+import type { PluginLogger } from './logging.js'
 
 export interface AgentContext {
   channel: 'voice-yemot'
@@ -35,6 +36,7 @@ export class AgentTimeoutError extends Error {
 export interface AgentLoopOptions {
   runner: AgentRunner
   cfg: AgentLoopConfig
+  logger?: PluginLogger
 }
 
 const SENTINEL_CALL_STARTED = '__call_started__'
@@ -67,6 +69,7 @@ export class AgentLoop {
       conversationId: session.state.callId,
       signal: session.state.abortController.signal,
     })
+    this.opts.logger?.info(`agent reply (1st) call=${session.state.callId} raw=${JSON.stringify(raw.slice(0, 400))}`)
 
     // 1st parse attempt
     let parsed: AgentReply | undefined
@@ -74,6 +77,7 @@ export class AgentLoop {
       parsed = parseAgentReply(raw, { strict: true })
     } catch (e) {
       if (!(e instanceof AgentReplyParseError)) throw e
+      this.opts.logger?.warn(`agent reply (1st) not valid JSON for call=${session.state.callId}; sending corrective prompt`)
       // 2nd attempt with corrective prompt
       const corrective =
         `Your previous reply was not valid JSON. Reply with strict JSON: ` +

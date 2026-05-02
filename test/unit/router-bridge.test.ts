@@ -51,14 +51,17 @@ function fakeCall(init: FakeCallInit): {
       return input
     },
 
-    id_list_message(messages: { type: string; data: string }[], _opts?: unknown): never {
+    id_list_message(messages: { type: string; data: string }[], opts?: { prependToNextAction?: boolean }): void {
       events.idList++
       responses.push({ directive: messages.map(m => m.data).join('|'), mode: 'id_list' })
-      throw new ExitError()
+      // Real lib only throws when not prepending. With prependToNextAction the
+      // message is queued and a follow-up call (hangup/go_to_folder) sends it.
+      if (!opts?.prependToNextAction) throw new ExitError()
     },
 
     hangup(): never {
       events.hangup++
+      responses.push({ directive: '', mode: 'hangup' })
       throw new ExitError()
     },
   }
@@ -100,6 +103,9 @@ describe('buildCallHandler', () => {
     expect(callEvents.idList).toBe(1)
     expect(responses[0]?.directive).toBe('שלום!')
     expect(responses[1]?.directive).toBe('להתראות')
+    // The terminal path queues the goodbye via prependToNextAction, then calls
+    // hangup() — which Yemot interprets as `id_list_message=...&go_to_folder=hangup`.
+    expect(callEvents.hangup).toBe(1)
 
     const types = events.map(e => e.type)
     expect(types).toContain('call.initiated')

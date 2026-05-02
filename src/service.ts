@@ -52,6 +52,7 @@ export class YemotService {
         responseTimeoutMs: opts.cfg.agent.responseTimeoutMs,
         fallbackErrorMessage: opts.cfg.call.fallbackErrorMessage,
       },
+      logger: this.logger,
     })
   }
 
@@ -107,6 +108,7 @@ export class YemotService {
         maxTurnsPerCall: this.opts.cfg.agent.maxTurnsPerCall,
       },
       emit: e => this.opts.onEvent?.(e),
+      logger: this.logger,
     })
 
     router.all('/', handler as unknown as Parameters<typeof router.all>[1])

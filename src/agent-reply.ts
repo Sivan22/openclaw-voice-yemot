@@ -29,9 +29,18 @@ export interface ParseOptions {
   strict?: boolean        // default false: malformed JSON falls back to auto-wrap
 }
 
+/**
+ * Strip a leading ```json ... ``` (or ``` ... ```) markdown fence if present.
+ * Many LLMs wrap structured output that way despite "no markdown" instructions.
+ */
+function stripCodeFences(raw: string): string {
+  const m = raw.trim().match(/^```(?:json)?\s*\n([\s\S]*?)\n```\s*$/i)
+  return m?.[1] ?? raw
+}
+
 export function parseAgentReply(raw: string, opts: ParseOptions = {}): AgentReply {
   const strict = opts.strict ?? false
-  const trimmed = raw.trimStart()
+  const trimmed = stripCodeFences(raw).trimStart()
   const looksLikeJson = trimmed.startsWith('{') || trimmed.startsWith('[')
 
   if (!looksLikeJson) {

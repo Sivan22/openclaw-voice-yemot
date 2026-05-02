@@ -3,6 +3,7 @@ import type { AgentLoop } from './agent-loop.js'
 import { renderPromptDirective } from './prompt-render.js'
 import type { NormalizedEvent } from './events.js'
 import type { CallEndReason } from './types.js'
+import type { PluginLogger } from './logging.js'
 
 export interface RouterBridgeCfg {
   defaultMode: 'stt' | 'tap'
@@ -19,6 +20,7 @@ export interface BuildHandlerArgs {
   agentLoop: AgentLoop
   cfg: RouterBridgeCfg
   emit: (e: NormalizedEvent) => void
+  logger?: PluginLogger
 }
 
 /**
@@ -42,7 +44,7 @@ export interface YemotCallLike {
 }
 
 export function buildCallHandler(args: BuildHandlerArgs): (call: YemotCallLike) => Promise<void> {
-  const { registry, agentLoop, cfg, emit } = args
+  const { registry, agentLoop, cfg, emit, logger } = args
 
   return async function handler(call: YemotCallLike): Promise<void> {
     const session = new CallSession({
@@ -67,8 +69,16 @@ export function buildCallHandler(args: BuildHandlerArgs): (call: YemotCallLike) 
       // eslint-disable-next-line no-constant-condition
       while (true) {
         if (nextPrompt.end) {
-          call.id_list_message(renderPromptDirective(nextPrompt.spoken, { stripInvalidChars: cfg.removeInvalidTtsChars }))
-          // never reached (id_list_message throws)
+          // Queue the goodbye message, then hangup. yemot-router2 sends
+          // them as `id_list_message=...&go_to_folder=hangup` — two top-level
+          // directives. Embedding go_to_folder INSIDE id_list_message makes
+          // Yemot try to navigate to an extension literally named "hangup".
+          call.id_list_message(
+            renderPromptDirective(nextPrompt.spoken, { stripInvalidChars: cfg.removeInvalidTtsChars }),
+            { prependToNextAction: true },
+          )
+          call.hangup()
+          // never reached (hangup throws)
           break
         }
 
@@ -84,8 +94,11 @@ export function buildCallHandler(args: BuildHandlerArgs): (call: YemotCallLike) 
           session.incEmpty()
           if (session.state.consecutiveEmptyInputs >= 2) {
             endReason = 'idle-timeout'
-            // Play a fallback and exit
-            call.id_list_message(renderPromptDirective(cfg.fallbackErrorMessage, { stripInvalidChars: cfg.removeInvalidTtsChars }))
+            call.id_list_message(
+              renderPromptDirective(cfg.fallbackErrorMessage, { stripInvalidChars: cfg.removeInvalidTtsChars }),
+              { prependToNextAction: true },
+            )
+            call.hangup()
             break
           }
         } else {
@@ -102,7 +115,11 @@ export function buildCallHandler(args: BuildHandlerArgs): (call: YemotCallLike) 
         session.incTurn()
         if (session.state.turnCount >= cfg.maxTurnsPerCall) {
           endReason = 'max-turns'
-          call.id_list_message(renderPromptDirective(cfg.fallbackErrorMessage, { stripInvalidChars: cfg.removeInvalidTtsChars }))
+          call.id_list_message(
+            renderPromptDirective(cfg.fallbackErrorMessage, { stripInvalidChars: cfg.removeInvalidTtsChars }),
+            { prependToNextAction: true },
+          )
+          call.hangup()
           break
         }
 
@@ -121,10 +138,17 @@ export function buildCallHandler(args: BuildHandlerArgs): (call: YemotCallLike) 
         endReason = 'hangup-user'
       } else {
         endReason = 'error'
-        emit({ type: 'call.error', session: session.state, error: e as Error, retryable: false })
+        const err = e as Error
+        const stackLine = err.stack?.split('\n').slice(0, 4).join(' | ') ?? ''
+        logger?.error(`voice-yemot call ${session.state.callId} hit error path: ${err.name}: ${err.message} | ${stackLine}`)
+        emit({ type: 'call.error', session: session.state, error: err, retryable: false })
         // Best-effort fallback play. Wrap in try to avoid double-throw.
         try {
-          call.id_list_message(renderPromptDirective(cfg.fallbackErrorMessage, { stripInvalidChars: cfg.removeInvalidTtsChars }))
+          call.id_list_message(
+            renderPromptDirective(cfg.fallbackErrorMessage, { stripInvalidChars: cfg.removeInvalidTtsChars }),
+            { prependToNextAction: true },
+          )
+          call.hangup()
         } catch {
           // already exiting
         }

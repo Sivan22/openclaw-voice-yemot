@@ -33,6 +33,7 @@
     "test:unit": "vitest run test/unit",
     "test:integration": "vitest run test/integration",
     "smoke": "tsx scripts/smoke.ts",
+    "live": "tsx --env-file=.env scripts/run-live.ts",
     "prepublishOnly": "npm run build"
   },
   "engines": {
