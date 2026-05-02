@@ -149,10 +149,14 @@ function modeOptions(reply: { mode: 'stt' | 'tap'; tap?: { digits: string[]; max
       digits_allowed: reply.tap.digits,
     }
   }
+  // yemot-router2 stt mode: `quiet_max` and `max_length` are only valid when
+  // `use_records_recognition_engine: true`. But that engine forbids `block_typing`,
+  // which is set to `false` by router defaults — there's no clean way to pass them
+  // both. We use the simpler stt mode (no records engine), so quiet_max / max_length
+  // from cfg are intentionally ignored here. (They remain in cfg for future use, e.g.
+  // when running directly against records-recognition.)
   return {
     lang: cfg.language,
-    quiet_max: cfg.sttQuietMaxSec,
-    max_length: cfg.sttMaxLengthSec,
   }
 }
 
