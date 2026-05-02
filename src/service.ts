@@ -56,6 +56,25 @@ export class YemotService {
   }
 
   async start(): Promise<void> {
+    // Spec §5.2 step 1: validate runtime preconditions before starting.
+    // publicBaseUrl is only required when we auto-configure the Yemot extension
+    // (we need a URL to send Yemot in the api_link). Without auto-configure the
+    // user is wiring Yemot's admin manually and we don't need to know.
+    if (this.opts.cfg.yemot.autoConfigureExtension && !this.opts.cfg.server.publicBaseUrl) {
+      throw new Error(
+        'voice-yemot: server.publicBaseUrl is required when yemot.autoConfigureExtension=true (the public URL Yemot calls back; use ngrok or similar for local dev).',
+      )
+    }
+    if (!this.opts.cfg.server.disableAuth && !this.opts.cfg.server.sharedSecret) {
+      // Auto-generate so the help text "Auto-generated if blank" actually holds.
+      const { randomBytes } = await import('node:crypto')
+      const generated = randomBytes(24).toString('base64url')
+      this.opts.cfg.server.sharedSecret = generated
+      this.logger.warn(
+        'voice-yemot: server.sharedSecret was empty; auto-generated. Configure it in your env to keep the secret stable across restarts.',
+      )
+    }
+
     this.app.use(express.urlencoded({ extended: true }))
     this.app.use(this.opts.cfg.server.webhookPath, createAuthMiddleware({
       sharedSecret: this.opts.cfg.server.sharedSecret,
@@ -106,7 +125,17 @@ export class YemotService {
 
     if (this.opts.cfg.yemot.autoConfigureExtension) {
       this.bootstrapStatus = 'pending'
-      // Lazy import to keep bootstrap off the unit-test path when auto-configure is off
+      // Spec §5.2 step 5: service is already listening; bootstrap runs in the background.
+      // A Yemot REST outage at boot must not block startup — calls already-bootstrapped
+      // on a prior run continue to work even if today's bootstrap fails.
+      void this.runBootstrapInBackground()
+    } else {
+      this.bootstrapStatus = 'skipped'
+    }
+  }
+
+  private async runBootstrapInBackground(): Promise<void> {
+    try {
       const { bootstrapExtension } = await import('./yemot-rest/bootstrap.js')
       const { YemotRestClient } = await import('./yemot-rest/client.js')
       const client = new YemotRestClient({ baseUrl: this.opts.cfg.yemot.apiBaseUrl })
@@ -132,8 +161,10 @@ export class YemotService {
         this.bootstrapError = r.error?.message
         this.logger.error('extension bootstrap failed', { error: r.error?.message, attempts: r.attempts })
       }
-    } else {
-      this.bootstrapStatus = 'skipped'
+    } catch (e) {
+      this.bootstrapStatus = 'failed'
+      this.bootstrapError = (e as Error).message
+      this.logger.error('extension bootstrap threw', { error: (e as Error).message })
     }
   }
 
