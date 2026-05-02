@@ -1,0 +1,53 @@
+{
+  "name": "openclaw-voice-yemot",
+  "version": "0.1.0",
+  "description": "OpenClaw voice-channel addin for Yemot Hamashiach (ימות המשיח)",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "openclaw.plugin.json",
+    "README.md"
+  ],
+  "openclaw": {
+    "extensions": ["./dist/index.js"],
+    "compat": { "pluginApi": "^1.0.0" }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint . --ext .ts",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:unit": "vitest run test/unit",
+    "test:integration": "vitest run test/integration",
+    "smoke": "tsx scripts/smoke.ts",
+    "prepublishOnly": "npm run build"
+  },
+  "engines": { "node": ">=20.0.0" },
+  "dependencies": {
+    "express": "^4.21.2",
+    "yemot-router2": "^6.2.0",
+    "yemot-api": "^3.2.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.16.10",
+    "@typescript-eslint/eslint-plugin": "^7.18.0",
+    "@typescript-eslint/parser": "^7.18.0",
+    "eslint": "^8.57.1",
+    "nock": "^13.5.5",
+    "tsx": "^4.19.1",
+    "typescript": "^5.6.2",
+    "vitest": "^2.1.1"
+  },
+  "license": "MIT"
+}
