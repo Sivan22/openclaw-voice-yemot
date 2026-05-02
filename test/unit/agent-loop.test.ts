@@ -21,7 +21,7 @@ describe('AgentLoop.firstTurn', () => {
     const loop = new AgentLoop({ runner, cfg })
     const r = await loop.firstTurn(mkSession())
     expect(r).toEqual({ spoken: 'שלום!', mode: 'stt', end: false })
-    const arg = (runner as unknown as { mock: { calls: AgentRunInput[][] } }).mock.calls[0][0]
+    const arg = (runner as unknown as { mock: { calls: AgentRunInput[][] } }).mock.calls[0]![0]!
     expect(arg.agentName).toBe('test-bot')
     expect(arg.input).toBe('__call_started__')
     expect(arg.context.channel).toBe('voice-yemot')
@@ -36,7 +36,7 @@ describe('AgentLoop.nextTurn', () => {
     const runner: AgentRunner = vi.fn().mockResolvedValue('בסדר')
     const loop = new AgentLoop({ runner, cfg })
     await loop.nextTurn(mkSession(), 'אני רוצה תור')
-    const arg = (runner as unknown as { mock: { calls: AgentRunInput[][] } }).mock.calls[0][0]
+    const arg = (runner as unknown as { mock: { calls: AgentRunInput[][] } }).mock.calls[0]![0]!
     expect(arg.input).toBe('אני רוצה תור')
   })
 

@@ -1,5 +1,6 @@
 import { describe, it, expect, vi } from 'vitest'
-import { bootstrapExtension, BootstrapResult } from '../../src/yemot-rest/bootstrap.js'
+import { bootstrapExtension } from '../../src/yemot-rest/bootstrap.js'
+import type { BootstrapResult } from '../../src/yemot-rest/bootstrap.js'
 import type { YemotRestClient, UpdateExtensionFields, IVR2DirResult } from '../../src/yemot-rest/client.js'
 
 function mkClient(impl: Partial<YemotRestClient>): YemotRestClient {
@@ -38,7 +39,7 @@ describe('bootstrapExtension', () => {
     expect(r.resolvedApiLink).toBe('https://addin.example.com/yemot?secret=sssssssssssssssss')
     expect(r.fellBackToApiUrl).toBe(false)
 
-    const passed = updateExt.mock.calls[0][1] as UpdateExtensionFields
+    const passed = updateExt.mock.calls[0]![1] as UpdateExtensionFields
     expect(passed.path).toBe('ivr2:/1')
     expect(passed.type).toBe('api')
     expect(passed.api_link).toBe('https://addin.example.com/yemot?secret=sssssssssssssssss')
@@ -70,7 +71,7 @@ describe('bootstrapExtension', () => {
     expect(r.fellBackToApiUrl).toBe(true)
     expect(r.resolvedApiLink).toBe('https://addin.example.com/yemot?secret=sssssssssssssssss')
     expect(updateExt).toHaveBeenCalledTimes(2)
-    const second = updateExt.mock.calls[1][1] as UpdateExtensionFields
+    const second = updateExt.mock.calls[1]![1] as UpdateExtensionFields
     expect(second.api_url).toBe('https://addin.example.com/yemot?secret=sssssssssssssssss')
   })
 
@@ -99,7 +100,7 @@ describe('bootstrapExtension', () => {
       getIVR2Dir: getDir,
     })
     await bootstrapExtension(client, { ...baseInput, publicBaseUrl: 'https://addin.example.com/' })
-    const fields = updateExt.mock.calls[0][1] as UpdateExtensionFields
+    const fields = updateExt.mock.calls[0]![1] as UpdateExtensionFields
     // No double slash:
     expect(fields.api_link).toBe('https://addin.example.com/yemot?secret=sssssssssssssssss')
   })
