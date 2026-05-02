@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any -- FakeCall uses `any` for narrow test surface */
 import { describe, it, expect, vi } from 'vitest'
 import { buildCallHandler } from '../../src/router-bridge.js'
 import { SessionRegistry } from '../../src/call-session.js'
@@ -23,7 +24,6 @@ function fakeCall(init: FakeCallInit): {
   const events = { read: 0, idList: 0, hangup: 0 }
   const responses: { directive: string; mode: string }[] = []
   let inputIdx = 0
-  let exited = false
   const call = {
     ApiCallId: init.ApiCallId,
     callId: init.ApiCallId,
@@ -42,7 +42,6 @@ function fakeCall(init: FakeCallInit): {
       if (init.hangupAfter !== undefined && events.read > init.hangupAfter) {
         // Simulate caller hangup mid-read by throwing a tagged error;
         // the handler treats it as a normal exit.
-        exited = true
         throw new ExitError()
       }
       const input = init.inputs[inputIdx++]
@@ -55,7 +54,6 @@ function fakeCall(init: FakeCallInit): {
     id_list_message(messages: { type: string; data: string }[], _opts?: unknown): never {
       events.idList++
       responses.push({ directive: messages.map(m => m.data).join('|'), mode: 'id_list' })
-      exited = true
       throw new ExitError()
     },
 

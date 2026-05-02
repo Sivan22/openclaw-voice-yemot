@@ -1,0 +1,1 @@
+{"filesCreated":["test/unit/auth.test.ts","src/auth.ts"],"filesModified":[],"commandsRun":["vitest","commit"],"testsPassed":6,"commitSha":"96f46e5","notes":"TDD: red then 6/6 green."}

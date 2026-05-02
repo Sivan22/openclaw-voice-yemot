@@ -1,0 +1,14 @@
+{
+  "type": "RUN_CREATED",
+  "recordedAt": "2026-05-02T17:42:42.462Z",
+  "data": {
+    "runId": "01KQMWJ4ZZ16JHGF8F4EK12VJJ",
+    "processId": "voice-yemot-implementation",
+    "entrypoint": {
+      "importPath": "../../processes/voice-yemot-implementation.js",
+      "exportName": "process"
+    },
+    "inputsRef": "inputs.json"
+  },
+  "checksum": "040aed95909973b30aec415df3830816fba2a2d6327e162465f57f2b1065b594"
+}

@@ -1,0 +1,39 @@
+{
+  "schemaVersion": "2026.01.results-v1",
+  "effectId": "01KQMXS200K7161XYWD6WNM84A",
+  "taskId": "execute-plan-task",
+  "invocationKey": "voice-yemot-implementation:S000021:execute-plan-task",
+  "status": "ok",
+  "result": {
+    "commandsRun": [
+      "vitest",
+      "commit"
+    ],
+    "commitSha": "f06044f",
+    "filesCreated": [
+      "test/unit/mock-yemot.test.ts",
+      "test/helpers/mock-yemot.ts",
+      "test/helpers/stub-agent.ts"
+    ],
+    "filesModified": [],
+    "notes": "TDD: red→2/2 green; suite=51.",
+    "testsPassed": 51
+  },
+  "startedAt": "2026-05-02T18:05:30.568Z",
+  "finishedAt": "2026-05-02T18:05:30.568Z",
+  "value": {
+    "commandsRun": [
+      "vitest",
+      "commit"
+    ],
+    "commitSha": "f06044f",
+    "filesCreated": [
+      "test/unit/mock-yemot.test.ts",
+      "test/helpers/mock-yemot.ts",
+      "test/helpers/stub-agent.ts"
+    ],
+    "filesModified": [],
+    "notes": "TDD: red→2/2 green; suite=51.",
+    "testsPassed": 51
+  }
+}

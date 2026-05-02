@@ -1,0 +1,1 @@
+{"filesCreated":["test/unit/mock-yemot.test.ts","test/helpers/mock-yemot.ts","test/helpers/stub-agent.ts"],"filesModified":[],"commandsRun":["vitest","commit"],"testsPassed":51,"commitSha":"f06044f","notes":"TDD: red→2/2 green; suite=51."}

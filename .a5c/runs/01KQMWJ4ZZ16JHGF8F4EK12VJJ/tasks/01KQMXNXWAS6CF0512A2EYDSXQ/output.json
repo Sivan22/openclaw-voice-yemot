@@ -1,0 +1,1 @@
+{"filesCreated":["test/unit/agent-loop.test.ts","src/agent-loop.ts"],"filesModified":[],"commandsRun":["vitest","commit"],"testsPassed":49,"commitSha":"84cf114","notes":"TDD: red→8/8 green; suite=49."}

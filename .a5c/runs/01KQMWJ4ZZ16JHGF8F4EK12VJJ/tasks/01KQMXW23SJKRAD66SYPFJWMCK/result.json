@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "2026.01.results-v1",
+  "effectId": "01KQMXW23SJKRAD66SYPFJWMCK",
+  "taskId": "execute-plan-task",
+  "invocationKey": "voice-yemot-implementation:S000023:execute-plan-task",
+  "status": "ok",
+  "result": {
+    "commandsRun": [
+      "vitest",
+      "commit"
+    ],
+    "commitSha": "d9b2828",
+    "filesCreated": [
+      "test/unit/router-bridge.test.ts",
+      "src/router-bridge.ts"
+    ],
+    "filesModified": [],
+    "notes": "TDD: red→6/6 green; suite=57. Agent added a small inRead flag in handler so mid-read errors map to hangup-user, matching the FakeCall test contract. Plus a follow-up commit cb4599f fixed pre-existing typecheck errors in tasks 8/10 test files (noUncheckedIndexedAccess + verbatimModuleSyntax).",
+    "testsPassed": 57
+  },
+  "startedAt": "2026-05-02T18:11:13.453Z",
+  "finishedAt": "2026-05-02T18:11:13.453Z",
+  "value": {
+    "commandsRun": [
+      "vitest",
+      "commit"
+    ],
+    "commitSha": "d9b2828",
+    "filesCreated": [
+      "test/unit/router-bridge.test.ts",
+      "src/router-bridge.ts"
+    ],
+    "filesModified": [],
+    "notes": "TDD: red→6/6 green; suite=57. Agent added a small inRead flag in handler so mid-read errors map to hangup-user, matching the FakeCall test contract. Plus a follow-up commit cb4599f fixed pre-existing typecheck errors in tasks 8/10 test files (noUncheckedIndexedAccess + verbatimModuleSyntax).",
+    "testsPassed": 57
+  }
+}

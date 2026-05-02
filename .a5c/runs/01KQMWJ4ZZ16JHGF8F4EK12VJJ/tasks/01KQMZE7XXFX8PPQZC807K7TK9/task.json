@@ -1,0 +1,24 @@
+{
+  "description": "Full test suite + typecheck + lint + build",
+  "io": {
+    "inputJsonPath": "tasks/01KQMZE7XXFX8PPQZC807K7TK9/input.json",
+    "outputJsonPath": "tasks/01KQMZE7XXFX8PPQZC807K7TK9/result.json"
+  },
+  "kind": "shell",
+  "labels": [
+    "final",
+    "verify"
+  ],
+  "shell": {
+    "command": "cd \"/root/yemot-ivr-openclaw-addin\" && echo \"=== FULL TEST SUITE ===\" && npm test 2>&1 | tail -60 && echo \"=== TYPECHECK ===\" && npm run typecheck 2>&1 | tail -20 && echo \"=== LINT ===\" && (npm run lint 2>&1 | tail -20 || echo \"(lint warnings non-fatal)\") && echo \"=== BUILD ===\" && npm run build 2>&1 | tail -20 && echo \"=== FINAL HEAD ===\" && git log --oneline | head -25"
+  },
+  "title": "Final full-suite verification",
+  "schemaVersion": "2026.01.tasks-v1",
+  "effectId": "01KQMZE7XXFX8PPQZC807K7TK9",
+  "taskId": "final-suite-verify",
+  "invocationKey": "voice-yemot-implementation:S000037:final-suite-verify",
+  "stepId": "S000037",
+  "inputs": {
+    "workingDir": "/root/yemot-ivr-openclaw-addin"
+  }
+}

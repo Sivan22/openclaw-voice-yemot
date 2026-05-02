@@ -64,6 +64,7 @@ export function buildCallHandler(args: BuildHandlerArgs): (call: YemotCallLike) 
       session.appendTranscript({ speaker: 'bot', text: nextPrompt.spoken, isFinal: true })
       emit({ type: 'call.speaking', session: session.state, text: nextPrompt.spoken })
 
+      // eslint-disable-next-line no-constant-condition
       while (true) {
         if (nextPrompt.end) {
           call.id_list_message(renderPromptDirective(nextPrompt.spoken, { stripInvalidChars: cfg.removeInvalidTtsChars }))

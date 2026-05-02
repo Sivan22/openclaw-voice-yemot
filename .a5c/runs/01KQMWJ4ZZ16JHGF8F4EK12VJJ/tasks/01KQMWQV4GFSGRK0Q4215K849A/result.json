@@ -1,0 +1,53 @@
+{
+  "schemaVersion": "2026.01.results-v1",
+  "effectId": "01KQMWQV4GFSGRK0Q4215K849A",
+  "taskId": "execute-plan-task",
+  "invocationKey": "voice-yemot-implementation:S000003:execute-plan-task",
+  "status": "ok",
+  "result": {
+    "commandsRun": [
+      "node scripts/check-yemot-api.mjs",
+      "npm view yemot-router2 version",
+      "npm install",
+      "npm run typecheck",
+      "git commit"
+    ],
+    "commitSha": "2d1e7cd",
+    "filesCreated": [
+      "scripts/check-yemot-api.mjs"
+    ],
+    "filesModified": [
+      "package.json",
+      "package-lock.json"
+    ],
+    "filesRemoved": [
+      "scripts/check-yemot-api.mjs"
+    ],
+    "notes": "Probe FAILED on yemot-api 3.2.0. Pivoted: removed yemot-api dep; Task 7 will use node:fetch (plan's Step 3 already implements via fetch — no code rework needed). yemot-router2 locked at 6.2.0. Plan's alternate commit message used.",
+    "testsPassed": 0
+  },
+  "startedAt": "2026-05-02T17:48:05.467Z",
+  "finishedAt": "2026-05-02T17:48:05.467Z",
+  "value": {
+    "commandsRun": [
+      "node scripts/check-yemot-api.mjs",
+      "npm view yemot-router2 version",
+      "npm install",
+      "npm run typecheck",
+      "git commit"
+    ],
+    "commitSha": "2d1e7cd",
+    "filesCreated": [
+      "scripts/check-yemot-api.mjs"
+    ],
+    "filesModified": [
+      "package.json",
+      "package-lock.json"
+    ],
+    "filesRemoved": [
+      "scripts/check-yemot-api.mjs"
+    ],
+    "notes": "Probe FAILED on yemot-api 3.2.0. Pivoted: removed yemot-api dep; Task 7 will use node:fetch (plan's Step 3 already implements via fetch — no code rework needed). yemot-router2 locked at 6.2.0. Plan's alternate commit message used.",
+    "testsPassed": 0
+  }
+}

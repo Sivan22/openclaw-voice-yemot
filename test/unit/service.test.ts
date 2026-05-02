@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect } from 'vitest'
 import { YemotService } from '../../src/service.js'
 import { stubAgent } from '../helpers/stub-agent.js'
 import type { PluginConfig } from '../../src/types.js'

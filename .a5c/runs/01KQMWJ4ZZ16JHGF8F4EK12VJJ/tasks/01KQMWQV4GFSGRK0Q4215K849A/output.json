@@ -1,0 +1,9 @@
+{
+  "filesCreated": ["scripts/check-yemot-api.mjs"],
+  "filesModified": ["package.json", "package-lock.json"],
+  "filesRemoved": ["scripts/check-yemot-api.mjs"],
+  "commandsRun": ["node scripts/check-yemot-api.mjs", "npm view yemot-router2 version", "npm install", "npm run typecheck", "git commit"],
+  "testsPassed": 0,
+  "commitSha": "2d1e7cd",
+  "notes": "Probe FAILED on yemot-api 3.2.0. Pivoted: removed yemot-api dep; Task 7 will use node:fetch (plan's Step 3 already implements via fetch — no code rework needed). yemot-router2 locked at 6.2.0. Plan's alternate commit message used."
+}

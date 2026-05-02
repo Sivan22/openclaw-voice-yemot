@@ -1,0 +1,1 @@
+{"filesCreated":["src/logging.ts","src/service.ts","test/unit/service.test.ts"],"filesModified":["src/router-bridge.ts"],"commandsRun":["vitest","commit"],"testsPassed":61,"commitSha":"6ce7428","notes":"yemot-router2 6.2.0 adaptations: removeInvalidChars moved under defaults; stt options simplified to {lang} due to lib option validation. Behavior preserved."}

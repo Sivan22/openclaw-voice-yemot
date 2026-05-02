@@ -1,0 +1,27 @@
+{
+  "description": "Run test suite + typecheck + verify a commit was made",
+  "io": {
+    "inputJsonPath": "tasks/01KQMX148C6B334J10Z9FR7M4B/input.json",
+    "outputJsonPath": "tasks/01KQMX148C6B334J10Z9FR7M4B/result.json"
+  },
+  "kind": "shell",
+  "labels": [
+    "task-4",
+    "verify"
+  ],
+  "shell": {
+    "command": "cd \"/root/yemot-ivr-openclaw-addin\" && echo \"=== TEST ===\" && npm test --silent 2>&1 | tail -40 && echo \"=== TYPECHECK ===\" && (npm run typecheck --silent 2>&1 | tail -20 || true) && echo \"=== GIT LOG (last 3) ===\" && git log -3 --oneline && echo \"=== GIT STATUS ===\" && git status --short && echo \"=== HEAD-COMMIT ===\" && git rev-parse --short HEAD"
+  },
+  "title": "Verify Plan Task 4",
+  "schemaVersion": "2026.01.tasks-v1",
+  "effectId": "01KQMX148C6B334J10Z9FR7M4B",
+  "taskId": "verify-task",
+  "invocationKey": "voice-yemot-implementation:S000008:verify-task",
+  "stepId": "S000008",
+  "inputs": {
+    "isFirstTask": false,
+    "isToolchainOnly": false,
+    "taskNumber": 4,
+    "workingDir": "/root/yemot-ivr-openclaw-addin"
+  }
+}

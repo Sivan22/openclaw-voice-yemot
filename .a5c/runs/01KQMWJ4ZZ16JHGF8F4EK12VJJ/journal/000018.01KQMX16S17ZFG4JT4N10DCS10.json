@@ -1,0 +1,19 @@
+{
+  "type": "EFFECT_REQUESTED",
+  "recordedAt": "2026-05-02T17:50:55.777Z",
+  "data": {
+    "effectId": "01KQMX16RDYKHTXCRR9V91YSKE",
+    "invocationKey": "voice-yemot-implementation:S000009:execute-plan-task",
+    "invocationHash": "f437f0a92cdb497b9963aa78dc3e8401a205e46852eb7fc018f95f30f1d6c33e",
+    "stepId": "S000009",
+    "taskId": "execute-plan-task",
+    "kind": "agent",
+    "label": "execute",
+    "taskDefRef": "tasks/01KQMX16RDYKHTXCRR9V91YSKE/task.json",
+    "labels": [
+      "execute",
+      "task-5"
+    ]
+  },
+  "checksum": "76907b5071ef8230e59445188fa6c2ca1f3a31d96b0402fce59353bf7b480c20"
+}

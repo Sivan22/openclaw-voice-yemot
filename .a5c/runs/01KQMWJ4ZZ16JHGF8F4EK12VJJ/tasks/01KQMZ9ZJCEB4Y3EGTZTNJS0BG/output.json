@@ -1,0 +1,1 @@
+{"filesCreated":["scripts/smoke.ts","README.md"],"filesModified":[],"commandsRun":["smoke","commit"],"testsPassed":76,"commitSha":"aa9a1f9","notes":"Smoke fail-fast confirmed; suite 76 green; typecheck clean."}

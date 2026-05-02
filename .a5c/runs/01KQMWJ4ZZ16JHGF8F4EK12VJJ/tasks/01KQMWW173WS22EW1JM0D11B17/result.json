@@ -1,0 +1,19 @@
+{
+  "schemaVersion": "2026.01.results-v1",
+  "effectId": "01KQMWW173WS22EW1JM0D11B17",
+  "taskId": "verify-task",
+  "invocationKey": "voice-yemot-implementation:S000004:verify-task",
+  "status": "ok",
+  "result": {
+    "commit": "2d1e7cd",
+    "passed": true,
+    "summary": "typecheck pass, commit 2d1e7cd ahead"
+  },
+  "startedAt": "2026-05-02T17:48:17.682Z",
+  "finishedAt": "2026-05-02T17:48:17.682Z",
+  "value": {
+    "commit": "2d1e7cd",
+    "passed": true,
+    "summary": "typecheck pass, commit 2d1e7cd ahead"
+  }
+}

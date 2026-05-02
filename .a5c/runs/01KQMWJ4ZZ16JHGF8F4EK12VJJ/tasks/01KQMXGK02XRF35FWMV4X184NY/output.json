@@ -1,0 +1,1 @@
+{"filesCreated":["test/unit/yemot-rest-bootstrap.test.ts","src/yemot-rest/bootstrap.ts"],"filesModified":[],"commandsRun":["vitest","commit"],"testsPassed":35,"commitSha":"d294e6d","notes":"TDD: red→5/5 green; suite=35."}

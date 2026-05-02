@@ -1,0 +1,19 @@
+{
+  "type": "EFFECT_REQUESTED",
+  "recordedAt": "2026-05-02T17:50:53.215Z",
+  "data": {
+    "effectId": "01KQMX148C6B334J10Z9FR7M4B",
+    "invocationKey": "voice-yemot-implementation:S000008:verify-task",
+    "invocationHash": "34639a78b023cb5e461a52b6716c6090e4145fe54173bf4c7251a81a5d4f51c8",
+    "stepId": "S000008",
+    "taskId": "verify-task",
+    "kind": "shell",
+    "label": "verify",
+    "taskDefRef": "tasks/01KQMX148C6B334J10Z9FR7M4B/task.json",
+    "labels": [
+      "verify",
+      "task-4"
+    ]
+  },
+  "checksum": "83daa10e3b2fdd47cc13c5efa1f014e64a9b099c37dc611df7ecaff79722e9a2"
+}

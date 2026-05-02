@@ -1,0 +1,19 @@
+{
+  "schemaVersion": "2026.01.results-v1",
+  "effectId": "01KQMY6CQ2FE9059QVY7WFCQYB",
+  "taskId": "verify-task",
+  "invocationKey": "voice-yemot-implementation:S000024:verify-task",
+  "status": "ok",
+  "result": {
+    "commit": "cb4599f",
+    "passed": true,
+    "summary": "57 tests pass; typecheck clean after fix-up commit"
+  },
+  "startedAt": "2026-05-02T18:11:15.128Z",
+  "finishedAt": "2026-05-02T18:11:15.128Z",
+  "value": {
+    "commit": "cb4599f",
+    "passed": true,
+    "summary": "57 tests pass; typecheck clean after fix-up commit"
+  }
+}
