@@ -1,0 +1,123 @@
+{
+  "id": "voice-yemot",
+  "name": "Voice (Yemot Hamashiach)",
+  "description": "Inbound voice channel for Yemot Hamashiach (Israeli IVR provider). Hebrew menu-driven IVR with LLM reasoning per turn.",
+  "version": "0.1.0",
+  "license": "MIT",
+  "homepage": "https://github.com/sivanratson/openclaw-voice-yemot",
+  "compat": { "pluginApi": "^1.0.0" },
+  "install": { "minHostVersion": "0.1.0" },
+  "release": { "publishToClawHub": false, "publishToNpm": false },
+  "activation": {
+    "onStartup": true
+  },
+  "channelEnvVars": {
+    "YEMOT_USERNAME": "yemot.username",
+    "YEMOT_PASSWORD": "yemot.password",
+    "YEMOT_SYSTEM_NUMBER": "yemot.systemNumber",
+    "YEMOT_EXTENSION_NUMBER": "yemot.extensionNumber",
+    "VOICE_YEMOT_PUBLIC_URL": "server.publicBaseUrl",
+    "VOICE_YEMOT_SHARED_SECRET": "server.sharedSecret",
+    "VOICE_YEMOT_PORT": "server.port",
+    "VOICE_YEMOT_AGENT": "agent.name"
+  },
+  "configContracts": {
+    "secretInputs": {
+      "paths": ["yemot.password", "server.sharedSecret"]
+    }
+  },
+  "configSchema": {
+    "type": "object",
+    "required": ["yemot", "agent", "server"],
+    "properties": {
+      "yemot": {
+        "type": "object",
+        "required": ["systemNumber", "username", "password", "extensionNumber"],
+        "properties": {
+          "systemNumber":     { "type": "string", "pattern": "^[0-9]+$" },
+          "username":         { "type": "string" },
+          "password":         { "type": "string" },
+          "extensionNumber":  { "type": "string", "default": "1" },
+          "extensionTitle":   { "type": "string", "default": "OpenClaw Voice" },
+          "apiBaseUrl":       { "type": "string", "format": "uri", "default": "https://www.call2all.co.il/ym/api/" },
+          "language":         { "type": "string", "default": "he-IL" },
+          "removeInvalidTtsChars":  { "type": "boolean", "default": true },
+          "autoConfigureExtension": { "type": "boolean", "default": true }
+        }
+      },
+      "server": {
+        "type": "object",
+        "properties": {
+          "port":          { "type": "integer", "default": 4080 },
+          "host":          { "type": "string",  "default": "0.0.0.0" },
+          "webhookPath":   { "type": "string",  "default": "/yemot" },
+          "publicBaseUrl": { "type": "string",  "format": "uri" },
+          "sharedSecret":  { "type": "string",  "minLength": 16 },
+          "disableAuth":   { "type": "boolean", "default": false }
+        }
+      },
+      "agent": {
+        "type": "object",
+        "required": ["name"],
+        "properties": {
+          "name": { "type": "string" },
+          "systemPromptAddon": {
+            "type": "string",
+            "default": "אתה מדבר בשיחה טלפונית בעברית. ענה בקצרה (משפט-שניים), בטון אנושי. כדי לסיים את השיחה, החזר JSON עם end:true."
+          },
+          "responseTimeoutMs": { "type": "integer", "default": 12000 },
+          "maxTurnsPerCall":   { "type": "integer", "default": 50 }
+        }
+      },
+      "call": {
+        "type": "object",
+        "properties": {
+          "defaultMode":          { "enum": ["stt", "tap"], "default": "stt" },
+          "sttQuietMaxSec":       { "type": "integer", "default": 3 },
+          "sttMaxLengthSec":      { "type": "integer", "default": 30 },
+          "callIdleTimeoutSec":   { "type": "integer", "default": 300 },
+          "fallbackErrorMessage": { "type": "string", "default": "מצטערים, התרחשה תקלה. נסו שוב מאוחר יותר." }
+        }
+      },
+      "persistence": {
+        "type": "object",
+        "properties": {
+          "transcripts": { "type": "boolean", "default": false },
+          "logDir":      { "type": "string",  "default": "./var/voice-yemot" }
+        }
+      }
+    }
+  },
+  "uiHints": {
+    "yemot.systemNumber":  { "label": "Yemot system number" },
+    "yemot.username":      { "label": "Yemot username" },
+    "yemot.password":      { "label": "Yemot password", "sensitive": true },
+    "yemot.extensionNumber": { "label": "Extension to wire (e.g. 1)" },
+    "yemot.extensionTitle":  { "label": "Extension title", "advanced": true },
+    "yemot.apiBaseUrl":      { "label": "Yemot REST API base URL", "advanced": true },
+    "yemot.language":        { "label": "Language code (BCP-47)", "advanced": true },
+    "yemot.removeInvalidTtsChars":  { "label": "Strip invalid TTS chars", "advanced": true },
+    "yemot.autoConfigureExtension": { "label": "Auto-configure Yemot extension on start" },
+
+    "server.port":          { "label": "Local listen port" },
+    "server.host":          { "label": "Local bind host", "advanced": true },
+    "server.webhookPath":   { "label": "Webhook path", "advanced": true },
+    "server.publicBaseUrl": { "label": "Public base URL Yemot calls (https://...)", "help": "If running locally, use ngrok or another tunnel and put the public URL here." },
+    "server.sharedSecret":  { "label": "Shared webhook secret", "sensitive": true, "help": "Auto-generated if blank — but keep one to identify your addin." },
+    "server.disableAuth":   { "label": "DISABLE webhook auth (NOT recommended)", "advanced": true },
+
+    "agent.name":              { "label": "Bound OpenClaw agent name" },
+    "agent.systemPromptAddon": { "label": "System prompt addon for voice", "advanced": true },
+    "agent.responseTimeoutMs": { "label": "Agent reply timeout (ms)", "advanced": true },
+    "agent.maxTurnsPerCall":   { "label": "Max turns per call", "advanced": true },
+
+    "call.defaultMode":           { "label": "Default IVR mode", "advanced": true },
+    "call.sttQuietMaxSec":        { "label": "STT silence cutoff (sec)", "advanced": true },
+    "call.sttMaxLengthSec":       { "label": "STT max utterance length (sec)", "advanced": true },
+    "call.callIdleTimeoutSec":    { "label": "Per-call idle timeout (sec)", "advanced": true },
+    "call.fallbackErrorMessage":  { "label": "Fallback message on errors", "advanced": true },
+
+    "persistence.transcripts": { "label": "Persist transcripts to log dir", "advanced": true },
+    "persistence.logDir":      { "label": "Log directory", "advanced": true }
+  }
+}
