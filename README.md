@@ -29,9 +29,9 @@ npm install openclaw-voice-yemot
 
 ### 1. You'll need
 
-- A **Yemot Hamashiach account** with a phone number. Sign up at
-  [yemot.com](https://www.call2all.co.il/ym/customer/register.aspx). Yemot is a
-  paid service; pricing is per-call and per-TTS-character.
+- A **Yemot Hamashiach account** with a phone number. To sign up, call Yemot
+  at **077-222-2770**. Yemot is a paid service; pricing is per-call and
+  per-TTS-character.
 - An **OpenClaw install** with a configured agent (the default `main` agent is
   fine for a first run).
 - A **public HTTPS URL** that forwards to your local addin (Yemot's webhook
