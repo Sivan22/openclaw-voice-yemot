@@ -1,1 +1,0 @@
-{"filesCreated":["test/unit/gateway-methods.test.ts","src/gateway-methods.ts"],"filesModified":[],"commandsRun":["vitest","commit"],"testsPassed":76,"commitSha":"9710cf1","notes":"TDD: red→5/5 green; suite=76."}

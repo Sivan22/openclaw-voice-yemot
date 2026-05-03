@@ -1,1 +1,0 @@
-{"filesCreated":[],"filesModified":["index.ts"],"commandsRun":["typecheck","build","test","commit"],"testsPassed":76,"commitSha":"374e063","notes":"Plugin entry written; typecheck+build clean; 76 tests pass."}

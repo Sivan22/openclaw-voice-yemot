@@ -1,1 +1,0 @@
-{"filesCreated":["openclaw.plugin.json"],"filesModified":[],"commandsRun":["node validate","commit"],"testsPassed":76,"commitSha":"6dd249e","notes":"Manifest declarative only; JSON validates."}

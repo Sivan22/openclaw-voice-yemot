@@ -4,7 +4,7 @@
   "description": "Inbound voice channel for Yemot Hamashiach (Israeli IVR provider). Hebrew menu-driven IVR with LLM reasoning per turn.",
   "version": "0.1.0",
   "license": "MIT",
-  "homepage": "https://github.com/sivanratson/openclaw-voice-yemot",
+  "homepage": "https://github.com/Sivan22/openclaw-voice-yemot",
   "compat": { "pluginApi": "^1.0.0" },
   "install": { "minHostVersion": "0.1.0" },
   "release": { "publishToClawHub": false, "publishToNpm": false },
@@ -65,7 +65,7 @@
             "type": "string",
             "default": "אתה מדבר בשיחה טלפונית בעברית. ענה בקצרה (משפט-שניים), בטון אנושי. כדי לסיים את השיחה, החזר JSON עם end:true."
           },
-          "responseTimeoutMs": { "type": "integer", "default": 12000 },
+          "responseTimeoutMs": { "type": "integer", "default": 60000 },
           "maxTurnsPerCall":   { "type": "integer", "default": 50 }
         }
       },

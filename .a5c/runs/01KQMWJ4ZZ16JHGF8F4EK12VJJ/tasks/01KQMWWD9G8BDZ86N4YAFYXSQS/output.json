@@ -1,1 +1,0 @@
-{"filesCreated":["src/types.ts","src/events.ts"],"filesModified":[],"commandsRun":["npm run typecheck","git commit"],"testsPassed":0,"commitSha":"2b998c6","notes":"Types + events committed cleanly."}

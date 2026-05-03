@@ -2,6 +2,27 @@
   "name": "openclaw-voice-yemot",
   "version": "0.1.0",
   "description": "OpenClaw voice-channel addin for Yemot Hamashiach (ימות המשיח)",
+  "license": "MIT",
+  "author": "Sivan Ratson <sivan.ratson@gmail.com>",
+  "homepage": "https://github.com/Sivan22/openclaw-voice-yemot#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sivan22/openclaw-voice-yemot.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Sivan22/openclaw-voice-yemot/issues"
+  },
+  "keywords": [
+    "openclaw",
+    "openclaw-plugin",
+    "yemot",
+    "yemot-hamashiach",
+    "ivr",
+    "voice",
+    "telephony",
+    "hebrew",
+    "llm-agent"
+  ],
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -14,7 +35,8 @@
   "files": [
     "dist",
     "openclaw.plugin.json",
-    "README.md"
+    "README.md",
+    "LICENSE"
   ],
   "openclaw": {
     "extensions": [
@@ -25,7 +47,7 @@
     }
   },
   "scripts": {
-    "build": "tsc -p tsconfig.json",
+    "build": "tsc -p tsconfig.build.json",
     "typecheck": "tsc --noEmit",
     "lint": "eslint . --ext .ts",
     "test": "vitest run",
@@ -54,6 +76,5 @@
     "tsx": "^4.19.1",
     "typescript": "^5.6.2",
     "vitest": "^2.1.1"
-  },
-  "license": "MIT"
+  }
 }

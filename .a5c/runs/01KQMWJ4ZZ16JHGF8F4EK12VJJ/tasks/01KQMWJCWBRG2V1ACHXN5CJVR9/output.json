@@ -1,8 +1,0 @@
-{
-  "filesCreated": [".gitignore", "package.json", "tsconfig.json", "vitest.config.ts", ".eslintrc.cjs", "index.ts", "package-lock.json"],
-  "filesModified": [],
-  "commandsRun": ["npm install", "npm view yemot-api version", "npm view yemot-router2 version", "npm run typecheck", "git add ... && git commit -m '...'"],
-  "testsPassed": 0,
-  "commitSha": "b07c131",
-  "notes": "Floated yemot-api ^1.5.0 -> ^3.2.0 and yemot-router2 ^2.5.0 -> ^6.2.0 (plan's pinned majors don't exist on npm; Task 2 will lock). Created placeholder index.ts with 'export {}' to satisfy tsc --noEmit (TS18003). Task 17 will overwrite. Standard deprecation warnings on eslint 8.57.1 only."
-}

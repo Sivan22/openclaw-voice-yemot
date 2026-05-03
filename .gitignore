@@ -7,3 +7,6 @@ var/
 .env
 .env.local
 .env.*.local
+
+# Internal automation / agent run artifacts — not part of the published source.
+.a5c/

@@ -1,1 +1,0 @@
-{"filesCreated":["test/unit/agent-reply.test.ts","src/agent-reply.ts"],"filesModified":[],"commandsRun":["vitest","commit"],"testsPassed":10,"commitSha":"ea4e88d","notes":"TDD: red then 10/10 green; full suite now 24."}

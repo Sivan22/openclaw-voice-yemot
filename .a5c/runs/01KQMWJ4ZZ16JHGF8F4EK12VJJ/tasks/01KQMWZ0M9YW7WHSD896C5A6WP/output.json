@@ -1,1 +1,0 @@
-{"filesCreated":["test/unit/prompt-render.test.ts","src/prompt-render.ts"],"filesModified":[],"commandsRun":["npx vitest run","git commit"],"testsPassed":8,"commitSha":"1125b93","notes":"TDD: failing run confirmed first; 8/8 pass after impl."}
