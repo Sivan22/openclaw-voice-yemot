@@ -56,6 +56,9 @@
     "test:integration": "vitest run test/integration",
     "smoke": "tsx scripts/smoke.ts",
     "live": "tsx --env-file=.env scripts/run-live.ts",
+    "changeset": "changeset",
+    "version": "changeset version",
+    "release": "npm run build && changeset publish",
     "prepublishOnly": "npm run build"
   },
   "engines": {
@@ -67,6 +70,7 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.31.0",
     "@types/express": "^4.17.21",
     "@types/node": "^20.16.10",
     "@typescript-eslint/eslint-plugin": "^7.18.0",
